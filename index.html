@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="index.css" />
+    <script type="module" src="index.js"></script>
+  </head>
+  <body>
+    <div class="container calculator">
+      <table>
+        <tbody>
+          <!-- Screen -->
+          <tr>
+            <td colspan="5">
+              <div class="calculator-screen">
+                <div class="calculator-history">&nbsp;</div>
+                <div class="calculator-input">0</div>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Buttons -->
+          <tr>
+            <td onclick="toggleAngleUnit()" class="calculator-btn btn-primary deg">Deg</td>
+            <td onclick="handleKeyPress('(')" class="calculator-btn btn-primary">(</td>
+            <td onclick="handleKeyPress(')')" class="calculator-btn btn-primary">)</td>
+            <td onclick="handleKeyPress('%')" class="calculator-btn btn-primary">%</td>
+            <td
+              onclick="handleKeyPress('Backspace')"
+              class="calculator-clear calculator-btn btn-primary"
+            >
+              C
+            </td>
+          </tr>
+          <tr>
+            <td onclick="handleKeyPress('s')" class="calculator-btn btn-primary">sin</td>
+            <td onclick="handleKeyPress('7')" class="calculator-btn btn-secondary">7</td>
+            <td onclick="handleKeyPress('8')" class="calculator-btn btn-secondary">8</td>
+            <td onclick="handleKeyPress('9')" class="calculator-btn btn-secondary">9</td>
+            <td onclick="handleKeyPress('/')" class="calculator-btn btn-primary">÷</td>
+          </tr>
+          <tr>
+            <td onclick="handleKeyPress('c')" class="calculator-btn btn-primary">cos</td>
+            <td onclick="handleKeyPress('4')" class="calculator-btn btn-secondary">4</td>
+            <td onclick="handleKeyPress('5')" class="calculator-btn btn-secondary">5</td>
+            <td onclick="handleKeyPress('6')" class="calculator-btn btn-secondary">6</td>
+            <td onclick="handleKeyPress('*')" class="calculator-btn btn-primary">×</td>
+          </tr>
+          <tr>
+            <td onclick="handleKeyPress('t')" class="calculator-btn btn-primary">tan</td>
+            <td onclick="handleKeyPress('1')" class="calculator-btn btn-secondary">1</td>
+            <td onclick="handleKeyPress('2')" class="calculator-btn btn-secondary">2</td>
+            <td onclick="handleKeyPress('3')" class="calculator-btn btn-secondary">3</td>
+            <td onclick="handleKeyPress('-')" class="calculator-btn btn-primary">-</td>
+          </tr>
+          <tr>
+            <td onclick="handleKeyPress('a')" class="calculator-btn btn-primary">Ans</td>
+            <td onclick="handleKeyPress('0')" class="calculator-btn btn-secondary">0</td>
+            <td onclick="handleKeyPress('.')" class="calculator-btn btn-secondary">.</td>
+            <td onclick="handleKeyPress('=')" class="calculator-btn btn-secondary">=</td>
+            <td onclick="handleKeyPress('+')" class="calculator-btn btn-primary">+</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
