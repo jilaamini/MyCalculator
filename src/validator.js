@@ -3,14 +3,14 @@ import { Key } from './constants.js';
 
 const inputElement = document.querySelector('.calculator-input');
 
-/** This function validate the input key*/
+/** This function validate the input key */
 export function isValidKey(key) {
   if (!Object.values(Key).includes(key)) {
     return false;
   }
 
   switch (key) {
-    case Key.CloseBracket:
+    case Key.ClosingBracket:
       if (getOpenedBrackets() <= 0) {
         return false;
       }
@@ -26,7 +26,7 @@ export function isValidKey(key) {
       }
       break;
 
-    case Key.FlaotingPoint:
+    case Key.FloatingPoint:
       // Avoid multiple dots in a number
       if (inputElement.innerText.match(/\.\d*$/)) {
         return false;
@@ -36,6 +36,7 @@ export function isValidKey(key) {
   return true;
 }
 
+/** This function returns the number of opened brackets but not closed */
 export function getOpenedBrackets() {
   return (
     (inputElement.innerText.match(/\(/g) || []).length -

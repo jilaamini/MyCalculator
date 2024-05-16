@@ -3,7 +3,7 @@ export const AngleUnit = Object.freeze({
   Radian: 'Rad'
 });
 
-export const ClearState = Object.freeze({
+export const ClearingState = Object.freeze({
   // AC: All Clear
   AllClear: 'AC',
   // C: Clear (Backspace)
@@ -12,8 +12,8 @@ export const ClearState = Object.freeze({
 
 export const HistoryBar = Object.freeze({
   Answer: 'Answer',
-  Input: 'Input',
-  Nothing: 'Nothing'
+  Equation: 'Equation',
+  Empty: 'Empty'
 });
 
 export const Key = Object.freeze({
@@ -32,13 +32,12 @@ export const Key = Object.freeze({
   Multiplication: '*',
   Division: '/',
   Percentage: '%',
-  FlaotingPoint: '.',
-  OpenBracket: '(',
-  CloseBracket: ')',
+  FloatingPoint: '.',
+  OpeningBracket: '(',
+  ClosingBracket: ')',
   Equality: '=',
   Enter: 'enter',
   Backspace: 'backspace',
-  Clear: 'clear',
   Sin: 's',
   Cos: 'c',
   Tan: 't',
@@ -56,10 +55,14 @@ export const KeyLabel = Object.freeze({
 });
 
 export const ArithmaticOperators = [Key.Plus, Key.Minus, Key.Multiplication, Key.Division];
+
 export const AlphabeticFeatures = [Key.Sin, Key.Cos, Key.Tan, Key.Answer];
 
 export const RESET_VALUE = '0';
+
 // Add a Non-breaking space to avoid the history bar from collapsing
 export const RESET_HISTOTY_BAR = '\xa0';
 
 export const ANSWER_PREFIX = 'Ans = ';
+
+export const ERROR_MESSAGE = 'Error';

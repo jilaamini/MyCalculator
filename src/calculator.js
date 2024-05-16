@@ -2,7 +2,8 @@
 import {
   ANSWER_PREFIX,
   AngleUnit,
-  ClearState,
+  ClearingState,
+  ERROR_MESSAGE,
   HistoryBar,
   Key,
   RESET_HISTOTY_BAR,
@@ -14,10 +15,11 @@ import { isValidKey } from './validator.js';
 export class Calculator {
   // Keep track of the current answer. (For memory functionality)
   answer = 0;
-  // Determine whether to display the historical answer, the input equation, or nothing.
-  histroryBar = HistoryBar.Nothing;
-  // Whether cleat all or clear one key(backspace).
-  clearingState = ClearState.Clear;
+  // Determine whether to display the historical answer, the input equation, or empty.
+  historyBar = HistoryBar.Empty;
+  // Whether clear all or clear one key(backspace).
+  clearingState = ClearingState.Clear;
+  // Degree or Radian
   angleUnit = AngleUnit.Degree;
 
   constructor() {
@@ -38,42 +40,32 @@ export class Calculator {
     }
 
     switch (key) {
-      case Key.Clear:
       case Key.Backspace:
-        this.handleClear();
+        this.handleClearKey();
         break;
 
       case Key.Equality:
       case Key.Enter:
-        this.handleEquality();
+        this.handleEqualityKey();
         break;
 
       default:
-        // Change the clear button to Clear
-        this.clearingState = ClearState.Clear;
-        this.clearElement.innerText = ClearState.Clear;
+        // Change the clear button to Clear state
+        this.clearingState = ClearingState.Clear;
+        this.clearElement.innerText = ClearingState.Clear;
 
-        // Display the historical answer when the user begins typing after the previous calculation.
-        if (this.histroryBar === HistoryBar.Input && key !== Key.Equality && key !== Key.Enter) {
+        // Display the historical answer when the user begins typing after the previous equation.
+        if (this.historyBar === HistoryBar.Equation) {
           this.historyElement.innerText = ANSWER_PREFIX + this.answer;
+          this.historyBar = HistoryBar.Answer;
+
           this.inputElement.innerText = RESET_VALUE;
-          this.histroryBar = HistoryBar.Answer;
         }
 
+        // Apply necessary modifications to enhance user-friendliness before displaying the input.
         const modifiedInput = modifyDisplay(key);
-        this.inputElement.innerText += modifiedInput;
-    }
-  };
 
-  handleAc = input => {
-    if (input === Key.Backspace || input === Key.Clear) {
-      return;
-    } else if (input === Key.Enter || input === Key.Equality) {
-      this.clearingState = ClearState.AllClear;
-      this.clearElement.innerText = 'AC';
-    } else {
-      this.clearingState = ClearState.Clear;
-      this.clearElement.innerText = 'C';
+        this.inputElement.innerText += modifiedInput;
     }
   };
 
@@ -88,13 +80,13 @@ export class Calculator {
     }
   };
 
-  handleClear = () => {
-    if (this.clearingState === ClearState.AllClear) {
+  handleClearKey = () => {
+    if (this.clearingState === ClearingState.AllClear) {
       // Reset the input.
       this.inputElement.innerText = RESET_VALUE;
 
       // Reset the history bar.
-      this.histroryBar = HistoryBar.Nothing;
+      this.historyBar = HistoryBar.Empty;
       this.historyElement.innerText = RESET_HISTOTY_BAR;
     } else {
       // Remove trigonometric keys in one step.
@@ -125,23 +117,28 @@ export class Calculator {
     }
   };
 
-  handleEquality = () => {
-    const transformed = modifyExpression(this.answer, this.angleUnit);
+  handleEqualityKey = () => {
+    const originalExpression = this.inputElement.innerText;
+    const transformedExpression = modifyExpression(this.answer, this.angleUnit);
 
     // Show the equation input at the history bar.
-    this.histroryBar = HistoryBar.Input;
+    this.historyBar = HistoryBar.Equation;
     this.historyElement.innerText = this.inputElement.innerText + Key.Equality;
 
     // Change the clear button to AllClear
-    this.clearingState = ClearState.AllClear;
-    this.clearElement.innerText = ClearState.AllClear;
+    this.clearingState = ClearingState.AllClear;
+    this.clearElement.innerText = ClearingState.AllClear;
 
     try {
-      const result = eval(transformed);
-      this.inputElement.innerText = isNaN(result) ? 'Error' : result;
-      this.answer = isNaN(result) ? this.answer : result;
+      const newResult = eval(transformedExpression);
+      const error = isNaN(newResult) || !isFinite(newResult);
+      this.inputElement.innerText = error ? ERROR_MESSAGE : newResult;
+      this.answer = error ? this.answer : newResult;
     } catch (error) {
-      this.inputElement.innerText = 'Error';
+      this.inputElement.innerText = ERROR_MESSAGE;
+      console.info(`Original expression: ${originalExpression}`);
+      console.info(`Tranformed expression: ${transformedExpression}`);
+      console.error(`Error message: `, error);
     }
   };
 }

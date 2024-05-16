@@ -71,7 +71,8 @@ export function modifyDisplay(key) {
     }
   }
 
-  // Add a multiplication sign after the Answer key followed by a number to enhance readability.
+  // Add a multiplication sign after the Answer key and % followed by a number to
+  // enhance readability.
   if (Number.isInteger(parseInt(key)) && inputElement.innerText.match(/[Ans|%]\s*$/)) {
     modifiedInput = KeyLabel.Multiplication + modifiedInput;
   }
@@ -84,7 +85,7 @@ export function modifyDisplay(key) {
  * before being evaluated by the eval function.
  */
 export function modifyExpression(answer, angleUnit) {
-  // Close any remaining open Brackets
+  // Close any remaining opening Brackets
   inputElement.innerText += ')'.repeat(getOpenedBrackets());
 
   // The modifications made here are not reflected in the input element directly
