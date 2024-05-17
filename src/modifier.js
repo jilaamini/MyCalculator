@@ -81,13 +81,16 @@ export function modifyDisplay(key) {
   return modifiedInput;
 }
 
-/**
- * This function is responsible for modifying the input to ensure it forms a valid expression
- * before being evaluated by the eval function.
+/** This function is responsible for modifying the input to ensure it forms a valid expression
+before being evaluated by the eval function.
+ *
+ * @param {string} answer The value of the last calculated answer.
+ * @param {AngleUnit} angleUnit The current angle unit mode.
+ * @returns {string} The modified key.
  */
 export function modifyExpression(answer, angleUnit) {
   // Close any remaining opening Brackets
-  inputElement.innerText += ')'.repeat(getOpenedBrackets());
+  inputElement.innerText += Key.ClosingBracket.repeat(getOpenedBrackets());
 
   // The modifications made here are not reflected in the input element directly
   // but are crucial for ensuring the expression's validity when evaluated by the eval function.

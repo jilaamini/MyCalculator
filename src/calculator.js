@@ -12,14 +12,29 @@ import {
 import { modifyDisplay, modifyExpression } from './modifier.js';
 import { isValidKey } from './validator.js';
 
+/**
+ * Represents a calculator with functionality for handling key inputs and calculating results.
+ */
 export class Calculator {
-  // Keep track of the current answer. (For memory functionality)
+  /**
+   * Keep track of the current answer. (For memory functionality)
+   * @type {number}
+   */
   answer = 0;
-  // Determine whether to display the historical answer, the input equation, or empty.
+  /**
+   * Determine whether to display the historical answer, the input equation, or empty.
+   * @type {HistoryBar}
+   */
   historyBar = HistoryBar.Empty;
-  // Whether clear all or clear one key(backspace).
+  /**
+   * Determines whether to clear all or clear one key (backspace).
+   * @type {ClearingState}
+   */
   clearingState = ClearingState.Clear;
-  // Degree or Radian
+  /**
+   * Specifies the angle unit mode (Degree or Radian).
+   * @type {AngleUnit}
+   */
   angleUnit = AngleUnit.Degree;
 
   constructor() {
