@@ -54,9 +54,9 @@ export const KeyLabel = Object.freeze({
   Division: '÷'
 });
 
-export const ArithmaticOperators = [Key.Plus, Key.Minus, Key.Multiplication, Key.Division];
+export const ArithmaticKeys = [Key.Plus, Key.Minus, Key.Multiplication, Key.Division];
 
-export const AlphabeticFeatures = [Key.Sin, Key.Cos, Key.Tan, Key.Answer];
+export const AlphabeticKeys = [Key.Sin, Key.Cos, Key.Tan, Key.Answer];
 
 export const RESET_VALUE = '0';
 

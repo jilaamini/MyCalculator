@@ -1,14 +1,15 @@
 'use strict';
 
 import {
-  AlphabeticFeatures,
+  AlphabeticKeys,
   AngleUnit,
-  ArithmaticOperators,
+  ArithmaticKeys,
   Key,
   KeyLabel,
   RESET_VALUE
 } from './constants.js';
 import { getOpenedBrackets } from './validator.js';
+
 const inputElement = document.querySelector('.calculator-input');
 
 /**
@@ -49,23 +50,23 @@ export function modifyDisplay(key) {
   // arithmatic keys or a percentage sign)
   if (
     inputElement.innerText === RESET_VALUE &&
-    !ArithmaticOperators.includes(key) &&
+    !ArithmaticKeys.includes(key) &&
     key !== Key.Percentage
   ) {
     inputElement.innerText = '';
   }
 
   // Switch the arithmetic operator if the user types a different one.
-  if (ArithmaticOperators.includes(key)) {
+  if (ArithmaticKeys.includes(key)) {
     const lastCharacter = inputElement.innerText.slice(-1);
-    if (ArithmaticOperators.includes(lastCharacter) && key !== lastCharacter) {
+    if (ArithmaticKeys.includes(lastCharacter) && key !== lastCharacter) {
       inputElement.innerText = inputElement.innerText.slice(0, -1);
     }
   }
 
   // Add a multiplication sign after the Answer key or numbers followed by alphabetic
   // keys to enhance readability.
-  if (AlphabeticFeatures.includes(key)) {
+  if (AlphabeticKeys.includes(key)) {
     if (inputElement.innerText.match(/[Ans|\d|)]\s*$/)) {
       modifiedInput = KeyLabel.Multiplication + modifiedInput;
     }
